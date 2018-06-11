@@ -6,4 +6,5 @@ void main(){
    printf("mybranch1");
    printf("mybranch1-2");
    printf("local edit");
+   printf("github 2 remote");
 }
