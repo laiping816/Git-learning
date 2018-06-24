@@ -19,3 +19,4 @@ async function doIt() {
 doIt();
 
 console.log("随机");
+console.log("远程master操作");
