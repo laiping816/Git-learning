@@ -21,3 +21,4 @@ doIt();
 console.log("随机");
 console.log("mybranch1 操作")
 console.log("mybranch1 操作2")
+console.log("mybranch1 远程操作")
