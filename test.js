@@ -19,3 +19,4 @@ async function doIt() {
 doIt();
 
 console.log("随机");
+console.log("mybranch1 操作")
