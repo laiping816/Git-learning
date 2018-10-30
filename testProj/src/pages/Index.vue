@@ -14,7 +14,7 @@
 
 <script>
   import moment from 'moment'
-  import { WeekDays} from "../lib/Constants";
+  // import { WeekDays} from "../lib/Constants";
   import _ from 'lodash'
   export default {
     components: {
@@ -37,7 +37,7 @@
         let dayOfWeek = moment(date).day();
 
         return {
-          name: WeekDays[dayOfWeek].name,
+          // name: WeekDays[dayOfWeek].name,
           date: date,
           dayOfWeek: dayOfWeek,
           isWeekend: dayOfWeek === 0 || dayOfWeek === 6

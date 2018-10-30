@@ -1,4 +1,4 @@
-
+console.log('111111');
 export const DayType = {
   Workday: '工作日',
   Weekend: '休息日',
@@ -33,3 +33,4 @@ export const WeekDays = [{
   name: '星期六',
   shortName: '六'
 }];
+console.log('222222');
