@@ -18,7 +18,9 @@ async function doIt() {
 
 doIt();
 
+
 console.log("随1机");
+
 
 console.log("远程master操作");
 
