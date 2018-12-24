@@ -1,90 +1,67 @@
 <template>
-  <div>
-  <el-select v-model="value5" filterable multiple placeholder="请选择">
-    <el-option
-      v-for="item in options"
-      :key="item.value"
-      :label="item.label"
-      :value="item.value">
-    </el-option>
-  </el-select>
-  <el-button type="primary" @click="momentTest">主要按钮</el-button>
+  <div style="margin-top:100px">
+    <el-form :model="form">
+      <el-form-item label="姓名" label-width="50px">
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
+      <el-form-item label="文件" label-width="50px">
+        <el-upload
+          action=""
+          list-type="picture-card"
+          :auto-upload="false"
+          :limit="1"
+          ref="upload"
+        >
+          <!-- :http-request="upload" -->
+          <!--<el-button size="small" type="primary">点击上传</el-button>-->
+          <!--<div slot="tip" class="el-upload__tip">只能上传pdf文件</div>-->
+          <i class="el-icon-plus"></i>
+        </el-upload>
+      </el-form-item>
+    </el-form>
+
+    <el-button type="primary" @click="upload">确定</el-button>
   </div>
 </template>
 
 <script>
-  import moment from 'moment'
-  // import { WeekDays} from "../lib/Constants";
-  import _ from 'lodash'
   export default {
-    components: {
-    //  Calendar
-    },
     data() {
       return {
-        options: [{
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }],
-        value5: ['选项2'],
+        form: {
+          name: '',
+          age: ''
+        }
       }
     },
-    methods:{
-      weekday: function(date) {
-        let dayOfWeek = moment(date).day();
-
-        return {
-          // name: WeekDays[dayOfWeek].name,
-          date: date,
-          dayOfWeek: dayOfWeek,
-          isWeekend: dayOfWeek === 0 || dayOfWeek === 6
-        };
-      },
-      weekOfMonth(date) {
-        let momDate = moment(date);
-        if (momDate.day() === 0) {
-          momDate = momDate.subtract(2, 'days');
-          date = new Date(momDate.year(), momDate.month(), momDate.date());
-        }
-
-        let weekStart = moment(date).weekday(1);
-        let weekEnd = moment(date).weekday(7);
-        let weekMiddle = moment(date).weekday(4);
-
-        // console.log(`date=${date} momDate=${momDate.format('YYYY-MM-DD')} weekStart=${weekStart.format('YYYY-MM-DD')} weekEnd=${weekEnd.format('YYYY-MM-DD')}`);
-
-        let weekSeq = 0;
-        if (weekMiddle.month() != weekStart.month()) {
-          weekSeq = 1;
-        } else {
-          let firstWeekStart = moment(date).weekday(4).date(1).weekday(1);
-          let firstWeekMiddle = moment(date).weekday(4).date(1).weekday(4);
-          if (firstWeekMiddle.month() != weekMiddle.month()) {
-            firstWeekMiddle = moment(date).weekday(4).date(1).weekday(11);
+    methods: {
+      upload() {
+        const formData = new FormData();
+        const file = this.$refs.upload.uploadFiles[0];
+        const headerConfig = { headers: { 'Content-Type': 'multipart/form-data' } };
+        // if (!file) { // 若未选择文件
+        //   alert('请选择文件');
+        //   return;
+        // }
+        formData.append('file', file.raw);
+        formData.append('name', this.name);
+        this.$http.post('/api/' ,formData,  headerConfig).then(res => {
+          console.log(123);
+          console.log(res);
+        }).catch(function (error) {
+          if (error.response) {
+            // 请求已发出，但服务器响应的状态码不在 2xx 范围内
+            // console.log(error.response.data);
+            console.log(error.response.status);
+            // console.log(error.response.headers);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message);
           }
-
-          weekSeq = (weekMiddle.date() - firstWeekMiddle.date()) / 7 + 1;
-        }
-
-        return {
-          year: weekMiddle.year(),
-          month: weekMiddle.month() + 1,
-          weekSeq: weekSeq,
-          weekStart: new Date(weekStart.year(), weekStart.month(), weekStart.date()),
-          weekMiddle: new Date(weekMiddle.year(), weekMiddle.month(), weekMiddle.date()),
-          weekEnd: new Date(weekEnd.year(), weekEnd.month(), weekEnd.date(), 23, 59, 59)
-        }
-      },
-      momentTest(){
-        console.log(this.weekday(moment().toDate()));
-        console.log(this.weekOfMonth(moment().toDate()));
+          // console.log(error.config);
+        });
       }
-    },
-    updated(){
-      console.log(this.value5)
+
     }
   }
 </script>

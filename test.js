@@ -1,19 +1,20 @@
 
-function takeLongTime(n) {
-    return new Promise(resolve => {
-        setTimeout(() => resolve(n + 200), n);
-    });
+function takeLongTime() {
+    // try {
+    console.log(lp);
+// } catch (e) {
+    // console.log(2333,e)
+// }
 }
 
-async function doIt() {
-    console.log("start");
-    await takeLongTime(1000)
-    						.then((value) => {
-    							console.log(value)
-    							return takeLongTime(1000)
-    						 })
-    						.then((value) => console.log(value))
-    console.log("end");
+function doIt() {
+    try {
+        takeLongTime();
+        console.log("hello")
+    } catch(e) {
+        console.log(444,e);
+    }
+  
 }
 
 doIt();
@@ -22,8 +23,3 @@ doIt();
 console.log("随1机");
 
 
-console.log("远程master操作");
-
-console.log("mybranch1 操作")
-console.log("mybranch1 操作2")
-console.log("mybranch1 远程操作")
