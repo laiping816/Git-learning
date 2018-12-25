@@ -25,6 +25,7 @@
 </template>
 
 <script>
+  const uuidv5 = require('uuid/v5');
   export default {
     data() {
       return {
@@ -36,6 +37,11 @@
     },
     methods: {
       upload() {
+        const MY_NAMESPACE = '1b671a64-40d5-491e-99b0-da01ff1f3341';
+
+        console.log(uuidv5('Hello, World!', MY_NAMESPACE));
+      },
+      upload1() {
         const formData = new FormData();
         const file = this.$refs.upload.uploadFiles[0];
         const headerConfig = { headers: { 'Content-Type': 'multipart/form-data' } };
