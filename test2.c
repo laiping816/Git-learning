@@ -7,4 +7,5 @@ void main(int args,char *args[]){
    printf("remoto  edit");
    printf("本地master操作");
    printf("本地");
+   printf("操作2");
 }
