@@ -23,5 +23,4 @@ doIt();
 console.log("随1机");
 console.log("remote");
 
-console.log("操作1");
 
